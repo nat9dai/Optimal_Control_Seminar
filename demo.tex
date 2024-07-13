@@ -66,7 +66,7 @@
   \begin{figure}
       \centering
       \includegraphics[width=0.8\textwidth]{photos/1.png}
-      \caption{An optimization problem in \( \mathbb{R}^2 \) with a single constraint.}
+      \caption{An optimization problem in \( \mathbb{R}^2 \) with a single constraint, $g(x)=0$.}
   \end{figure}
   \[
     \begin{aligned}
@@ -77,9 +77,10 @@
 \end{frame}  
 
 \begin{frame}{Generalizing to Infinite Dimensions}
-  To generalize this to functional minimization, define the directional derivative:
+  To generalize this to functional minimization, suppose that $F$ is a functional on $D^{r}[t_0,t_1]$, $F(z)$ is a real number, and $z \in D^{r}[t_0,t_1]$.
+  We define the directional derivative:
   \[
-  D_\eta F(z) = \lim_{\epsilon \to 0} \frac{F(z + \epsilon \eta) - F(z)}{\epsilon}
+    D_\eta F(z) = \lim_{\epsilon \to 0} \frac{F(z + \epsilon \eta) - F(z)}{\epsilon}
   \]
   A function \( z_0 \) is a stationary point of \( F \) if \( D_\eta F(z_0) = 0 \) for any \( \eta \).
   \begin{figure}

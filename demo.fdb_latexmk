@@ -1,7 +1,7 @@
 # Fdb version 3
-["pdflatex"] 1720841512 "/home/nat/Documents/LaTex/Optimal_Control_Seminar/demo.tex" "demo.pdf" "demo" 1720841515
+["pdflatex"] 1720846224 "/home/nat/Documents/LaTex/Optimal_Control_Seminar/demo.tex" "demo.pdf" "demo" 1720846227
   "/etc/texmf/web2c/texmf.cnf" 1712494587 475 c0e671620eb5563b2130f56340a5fde8 ""
-  "/home/nat/Documents/LaTex/Optimal_Control_Seminar/demo.tex" 1720841509 15848 b474ee55e232e815a72a55630394a4c6 ""
+  "/home/nat/Documents/LaTex/Optimal_Control_Seminar/demo.tex" 1720846224 15972 c472b40376eb22126716f579d4bbdacc ""
   "/usr/share/texlive/texmf-dist/fonts/map/fontname/texfonts.map" 1577235249 3524 cb3e574dea2d1052e39280babc910dc8 ""
   "/usr/share/texlive/texmf-dist/fonts/tfm/public/amsfonts/cmextra/cmex7.tfm" 1246382020 1004 54797486969f23fa377b128694d548df ""
   "/usr/share/texlive/texmf-dist/fonts/tfm/public/amsfonts/cmextra/cmex9.tfm" 1246382020 996 a18840b13b499c08ac2de96a99eda4bc ""
@@ -280,12 +280,12 @@
   "/var/lib/texmf/fonts/map/pdftex/updmap/pdftex.map" 1712495359 4036811 4cb80868003c86b962b6b5ae1e1e2902 ""
   "/var/lib/texmf/web2c/pdftex/pdflatex.fmt" 1712495366 1405647 3692e6e22fee90b3f3ad083949211696 ""
   "KU_en.png" 1720133210 632515 30d0a4756b4ecbc0bece80f18c765615 ""
-  "demo.aux" 1720841515 7501 7332931319562ba45bf9f6f0e85aaccd "pdflatex"
-  "demo.nav" 1720841515 4715 c9e3d68b7c44abd13bda5c4166c4f7c6 "pdflatex"
-  "demo.out" 1720841515 689 41ad98515f5e8fe6b1c05f3f2655028f "pdflatex"
-  "demo.tex" 1720841509 15848 b474ee55e232e815a72a55630394a4c6 ""
-  "demo.toc" 1720841515 245 98d53304f500767478e5810098d2e561 "pdflatex"
-  "demo.vrb" 1720841515 261 9ace4c6404f0a63ab8241075d6f2f633 "pdflatex"
+  "demo.aux" 1720846227 7501 7332931319562ba45bf9f6f0e85aaccd "pdflatex"
+  "demo.nav" 1720846227 4715 c9e3d68b7c44abd13bda5c4166c4f7c6 "pdflatex"
+  "demo.out" 1720846227 689 41ad98515f5e8fe6b1c05f3f2655028f "pdflatex"
+  "demo.tex" 1720846224 15972 c472b40376eb22126716f579d4bbdacc ""
+  "demo.toc" 1720846227 245 98d53304f500767478e5810098d2e561 "pdflatex"
+  "demo.vrb" 1720846227 261 9ace4c6404f0a63ab8241075d6f2f633 "pdflatex"
   "metropolisbrown.sty" 1720764331 1064 02f1b1208a111f0827257c3b49904a49 ""
   "photos/1.png" 1720763599 63785 f2e9e806b1855a73e3deeff4f2c0f5dc ""
   "photos/2.png" 1720799977 17575 8d8d05e6aa46692b50ccb03c0ae56498 ""
