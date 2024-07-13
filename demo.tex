@@ -21,7 +21,7 @@
 \title{An Introduction to Minimum Principle}
 %\subtitle{A modern beamer theme -- with a twist!}
 % \date{\today}
-\date{}
+\date{2024/07/24}
 \author{Nuthasith (Nat) Gerdpratoom}
 \institute{Control \& Optimization Laboratory}
 \titlegraphic{\hfill\href{https://brown.edu}{\includegraphics[height=2cm]{KU_en.png}}}
@@ -37,285 +37,473 @@
 
 \section{Minimum Principle and Lagrange Multipliers}
 
-\begin{frame}[fragile]{Minimum Principle and Lagrange Multipliers}
-
-  The \themename theme is a Beamer theme with minimal visual noise
-  inspired by the \href{https://github.com/hsrmbeamertheme/hsrmbeamertheme}{\textsc{hsrm} Beamer
-  Theme} by Benjamin Weiss.
-
-  Enable the theme by loading
-
-  \begin{verbatim}    \documentclass{beamer}
-    \usetheme{metropolis}\end{verbatim}
-
-  Note, that you have to have Mozilla's \emph{Fira Sans} font and XeTeX
-  installed to enjoy this wonderful typography.
+\begin{frame}{Introduction}
+  Optimal control involves minimizing a functional similar to ordinary optimization in finite dimensions. For unconstrained optimization, we find stationary points where the derivative of the function is zero. This concept extends to infinite dimensions in the calculus of variations.
 \end{frame}
-\begin{frame}[fragile]{Minimum Principle and Lagrange Multipliers}
-  Sections group slides of the same topic
 
-  \begin{verbatim}    \section{Elements}\end{verbatim}
+\begin{frame}{Lagrange Multipliers in Finite Dimensions}
+  Consider an optimization problem with constraint \( g(x) = \mathbf{0} \), where \(g:\mathbb{R}^{m}\rightarrow \mathbb{R}^{d}\):
+  \[
+    \begin{aligned}
+      &\underset{x}{\min}V(x) \\
+      &\text{s.t. } g(x) = \mathbf{0}
+    \end{aligned}
+  \]
+  In constrained optimization in \( \mathbb{R}^m \), we use Lagrange multipliers:
+  \[
+  \hat{V}(x, p) = V(x) + p^T g(x)
+  \]
+  where \( p \) is a Lagrange multiplier. If \( x^0, p^0 \) is a stationary point, then:
+  \[
+  \begin{aligned}
+    \nabla_x \hat{V}(x^0, p^0) &= \nabla V(x^0) + \nabla g(x^0) p^0 = \mathbf{0}\\
+    \nabla_p \hat{V}(x^0, p^0) &= g(x^0) = \mathbf{0}
+  \end{aligned}
+  \]
+  \end{frame}
 
-  for which \themename provides a nice progress indicator \ldots
+\begin{frame}{Lagrange Multipliers in Finite Dimensions}
+  \begin{figure}
+      \centering
+      \includegraphics[width=0.8\textwidth]{photos/1.png}
+      \caption{An optimization problem in \( \mathbb{R}^2 \) with a single constraint.}
+  \end{figure}
+  \[
+    \begin{aligned}
+      \nabla_x \hat{V}(x^0, p^0) &= \nabla V(x^0) + \nabla g(x^0) p^0 = \mathbf{0}\\
+      \nabla_p \hat{V}(x^0, p^0) &= g(x^0) = \mathbf{0}
+    \end{aligned}
+  \]
+\end{frame}  
+
+\begin{frame}{Generalizing to Infinite Dimensions}
+  To generalize this to functional minimization, define the directional derivative:
+  \[
+  D_\eta F(z) = \lim_{\epsilon \to 0} \frac{F(z + \epsilon \eta) - F(z)}{\epsilon}
+  \]
+  A function \( z_0 \) is a stationary point of \( F \) if \( D_\eta F(z_0) = 0 \) for any \( \eta \).
+  \begin{figure}
+    \centering
+    \includegraphics[width=0.7\textwidth]{photos/2.png}
+    \caption{A Perturbation of function \(z\in D[t_{0},t_{1}]\)}
+  \end{figure}
+\end{frame}
+
+\begin{frame}{Steps to Extend the Lagrange Multiplier Method}
+\begin{enumerate}
+    \item **Append state equations:** Define a new cost functional including the state dynamics:
+    \[
+    \hat{V}(x, u) = \int_{t_0}^{t_1} \ell \, dt + m(x(t_1)) + \int_{t_0}^{t_1} p^T (f - \dot{x}) \, dt
+    \]
+    \item **Integration by parts:** Eliminate the derivative of \( x \):
+    \[
+    \int_{t_0}^{t_1} p^T \dot{x} \, dt = \left[ p^T x \right]_{t_0}^{t_1} - \int_{t_0}^{t_1} \dot{p}^T x \, dt
+    \]
+    \item **Define the Hamiltonian:**
+    \[
+    H(x, p, u, t) = \ell(x, u, t) + p^T f(x, u, t)
+    \]
+\end{enumerate}
+\end{frame}
+
+\begin{frame}{Steps to Extend the Lagrange Multiplier Method (cont.)}
+\begin{enumerate}
+    \setcounter{enumi}{3}
+    \item **Compute variations:** For perturbations \( x(t, \epsilon) = x^\circ(t) + \epsilon \eta(t) \) and \( u(t, \delta) = u^\circ(t) + \delta \psi(t) \), set \( \frac{d}{d\epsilon} \hat{V}(\epsilon) = 0 \) and \( \frac{d}{d\delta} \hat{V}(\delta) = 0 \).
+    \item **Derive necessary conditions:** From the variations, derive the equations:
+    \[
+    \dot{p} = -\frac{\partial H}{\partial x}, \quad p(t_1) = \frac{\partial m}{\partial x}(x(t_1))
+    \]
+    \[
+    \frac{\partial H}{\partial u} = 0
+    \]
+\end{enumerate}
+\end{frame}
+
+\begin{frame}{Deriving the Minimum Principle}
+  Combine the steps to derive the Minimum Principle. If \( u^\circ \) is optimal, there exists a costate \( p(t) \) such that:
+  \[
+  u^\circ(t) = \arg \min_u H(x^\circ(t), p(t), u, t)
+  \]
+  The state and costate satisfy:
+  \[
+  \dot{x}^\circ = \frac{\partial H}{\partial p}, \quad \dot{p} = -\frac{\partial H}{\partial x}
+  \]
+  with boundary conditions:
+  \[
+  x(t_0) = x_0, \quad p(t_1) = \frac{\partial m}{\partial x}(x(t_1))
+  \]
+\end{frame}
   
-\end{frame}
-
 \section{The Penalty Approach}
-
-\begin{frame}{Metropolis titleformats}
-	\themename supports 4 different titleformats:
-	\begin{itemize}
-		\item Regular
-		\item \textsc{Smallcaps}
-		\item \textsc{allsmallcaps}
-		\item ALLCAPS
-	\end{itemize}
-	They can either be set at once for every title type or individually.
+  
+\begin{frame}[fragile]{The Penalty Approach}
+  A third heuristic approach to the Minimum Principle involves relaxing the hard constraint \( \dot{x} - f = 0 \), and instead imposing a large, yet "soft" constraint.
+  \[
+  \hat{V}(x, u) = \int_{t_0}^{t_1} \ell(x(t), u(t), t) \, dt + \frac{k}{2} \int_{t_0}^{t_1} |\dot{x}(t) - f(x(t), u(t), t)|^2 \, dt + m(x(t_1))
+  \]
+  \end{frame}
+  
+  \begin{frame}[fragile]{Perturbation and Optimality}
+  If \( (x_k, u_k) \) minimizes \( \hat{V}_k \), and letting \( (x^\circ, u^\circ) \) denote a solution to the original problem:
+  \[
+  \hat{V}_k(x_k, u_k) \leq \hat{V}_k(x^\circ, u^\circ) = V^\circ
+  \]
+  Assuming \( \ell \) and \( m \) are positive, this gives the uniform bound:
+  \[
+  \int_{t_0}^{t_1} |\dot{x}(t) - f(x(t), u(t), t)|^2 \, dt \leq \frac{2}{k} V^\circ
+  \]
 \end{frame}
-
-
-{
-    \metroset{titleformat frame=smallcaps}
-\begin{frame}{Small caps}
-	This frame uses the \texttt{smallcaps} titleformat.
-
-	\begin{alertblock}{Potential Problems}
-		Be aware, that not every font supports small caps. If for example you typeset your presentation with pdfTeX and the Computer Modern Sans Serif font, every text in smallcaps will be typeset with the Computer Modern Serif font instead.
-	\end{alertblock}
-\end{frame}
-}
-
-{
-\metroset{titleformat frame=allsmallcaps}
-\begin{frame}{All small caps}
-	This frame uses the \texttt{allsmallcaps} titleformat.
-
-	\begin{alertblock}{Potential problems}
-		As this titleformat also uses smallcaps you face the same problems as with the \texttt{smallcaps} titleformat. Additionally this format can cause some other problems. Please refer to the documentation if you consider using it.
-
-		As a rule of thumb: Just use it for plaintext-only titles.
-	\end{alertblock}
-\end{frame}
-}
-
-{
-\metroset{titleformat frame=allcaps}
-\begin{frame}{All caps}
-	This frame uses the \texttt{allcaps} titleformat.
-
-	\begin{alertblock}{Potential Problems}
-		This titleformat is not as problematic as the \texttt{allsmallcaps} format, but basically suffers from the same deficiencies. So please have a look at the documentation if you want to use it.
-	\end{alertblock}
-\end{frame}
-}
-
+  
 \section{Application to LQR}
-
-\begin{frame}[fragile]{Typography}
-      \begin{verbatim}The theme provides sensible defaults to
-\emph{emphasize} text, \alert{accent} parts
-or show \textbf{bold} results.\end{verbatim}
-
-  \begin{center}becomes\end{center}
-
-  The theme provides sensible defaults to \emph{emphasize} text,
-  \alert{accent} parts or show \textbf{bold} results.
+  
+\begin{frame}[fragile]{Application to LQR}
+  The LQR problem tests the Minimum Principle's utility for constructing optimal policies. Consider the general LTI model with quadratic cost:
+  \[
+  \dot{x} = Ax + Bu
+  \]
+  \[
+  V = \int_{t_0}^{t_1} (x^T Q x + u^T R u) \, dt + x^T(t_1) M x(t_1)
+  \]
 \end{frame}
-
-\begin{frame}{Font feature test}
-  \begin{itemize}
-    \item Regular
-    \item \textit{Italic}
-    \item \textsc{SmallCaps}
-    \item \textbf{Bold}
-    \item \textbf{\textit{Bold Italic}}
-    \item \textbf{\textsc{Bold SmallCaps}}
-    \item \texttt{Monospace}
-    \item \texttt{\textit{Monospace Italic}}
-    \item \texttt{\textbf{Monospace Bold}}
-    \item \texttt{\textbf{\textit{Monospace Bold Italic}}}
-  \end{itemize}
+  
+\begin{frame}[fragile]{Solving the LQR Problem}
+  The Hamiltonian:
+  \[
+  H = x^T Q x + u^T R u + p^T (Ax + Bu)
+  \]
+  Control can be computed through:
+  \[
+  \nabla_u H = 0 \Rightarrow u = -\frac{1}{2} R^{-1} B^T p
+  \]
+  Resulting in:
+  \[
+  \dot{x} = Ax - \frac{1}{2} BR^{-1} B^T p
+  \]
+  \[
+  \dot{p} = -\nabla_x H = -2Q x - A^T p
+  \]
 \end{frame}
-
-\begin{frame}{Lists}
-  \begin{columns}[T,onlytextwidth]
-    \column{0.33\textwidth}
-      Items
-      \begin{itemize}
-        \item Milk \item Eggs \item Potatos
-      \end{itemize}
-
-    \column{0.33\textwidth}
-      Enumerations
-      \begin{enumerate}
-        \item First, \item Second and \item Last.
-      \end{enumerate}
-
-    \column{0.33\textwidth}
-      Descriptions
-      \begin{description}
-        \item[PowerPoint] Meeh. \item[Beamer] Yeeeha.
-      \end{description}
-  \end{columns}
-\end{frame}
-\begin{frame}{Animation}
-  \begin{itemize}[<+- | alert@+>]
-    \item \alert<4>{This is\only<4>{ really} important}
-    \item Now this
-    \item And now this
-  \end{itemize}
-\end{frame}
-\begin{frame}{Figures}
-  \begin{figure}
-    \newcounter{density}
-    \setcounter{density}{20}
-    \begin{tikzpicture}
-      \def\couleur{alerted text.fg}
-      \path[coordinate] (0,0)  coordinate(A)
-                  ++( 90:5cm) coordinate(B)
-                  ++(0:5cm) coordinate(C)
-                  ++(-90:5cm) coordinate(D);
-      \draw[fill=\couleur!\thedensity] (A) -- (B) -- (C) --(D) -- cycle;
-      \foreach \x in {1,...,40}{%
-          \pgfmathsetcounter{density}{\thedensity+20}
-          \setcounter{density}{\thedensity}
-          \path[coordinate] coordinate(X) at (A){};
-          \path[coordinate] (A) -- (B) coordinate[pos=.10](A)
-                              -- (C) coordinate[pos=.10](B)
-                              -- (D) coordinate[pos=.10](C)
-                              -- (X) coordinate[pos=.10](D);
-          \draw[fill=\couleur!\thedensity] (A)--(B)--(C)-- (D) -- cycle;
-      }
-    \end{tikzpicture}
-    \caption{Rotated square from
-    \href{http://www.texample.net/tikz/examples/rotated-polygons/}{texample.net}.}
-  \end{figure}
-\end{frame}
-\begin{frame}{Tables}
-  \begin{table}
-    \caption{Largest cities in the world (source: Wikipedia)}
-    \begin{tabular}{lr}
-      \toprule
-      City & Population\\
-      \midrule
-      Mexico City & 20,116,842\\
-      Shanghai & 19,210,000\\
-      Peking & 15,796,450\\
-      Istanbul & 14,160,467\\
-      \bottomrule
-    \end{tabular}
-  \end{table}
-\end{frame}
-\begin{frame}{Blocks}
-  Three different block environments are pre-defined and may be styled with an
-  optional background color.
-
-  \begin{columns}[T,onlytextwidth]
-    \column{0.5\textwidth}
-      \begin{block}{Default}
-        Block content.
-      \end{block}
-
-      \begin{alertblock}{Alert}
-        Block content.
-      \end{alertblock}
-
-      \begin{exampleblock}{Example}
-        Block content.
-      \end{exampleblock}
-
-    \column{0.5\textwidth}
-
-      \metroset{block=fill}
-
-      \begin{block}{Default}
-        Block content.
-      \end{block}
-
-      \begin{alertblock}{Alert}
-        Block content.
-      \end{alertblock}
-
-      \begin{exampleblock}{Example}
-        Block content.
-      \end{exampleblock}
-
-  \end{columns}
-\end{frame}
-\begin{frame}{Math}
-  \begin{equation*}
-    e = \lim_{n\to \infty} \left(1 + \frac{1}{n}\right)^n
-  \end{equation*}
-\end{frame}
-\begin{frame}{Line plots}
-  \begin{figure}
-    \begin{tikzpicture}
-      \begin{axis}[
-        mlineplot,
-        width=0.9\textwidth,
-        height=6cm,
-      ]
-
-        \addplot {sin(deg(x))};
-        \addplot+[samples=100] {sin(deg(2*x))};
-
-      \end{axis}
-    \end{tikzpicture}
-  \end{figure}
-\end{frame}
-\begin{frame}{Bar charts}
-  \begin{figure}
-    \begin{tikzpicture}
-      \begin{axis}[
-        mbarplot,
-        xlabel={Foo},
-        ylabel={Bar},
-        width=0.9\textwidth,
-        height=6cm,
-      ]
-
-      \addplot plot coordinates {(1, 20) (2, 25) (3, 22.4) (4, 12.4)};
-      \addplot plot coordinates {(1, 18) (2, 24) (3, 23.5) (4, 13.2)};
-      \addplot plot coordinates {(1, 10) (2, 19) (3, 25) (4, 15.2)};
-
-      \legend{lorem, ipsum, dolor}
-
-      \end{axis}
-    \end{tikzpicture}
-  \end{figure}
-\end{frame}
-\begin{frame}{Quotes}
-  \begin{quote}
-    Veni, Vidi, Vici
-  \end{quote}
-\end{frame}
-
-{%
-\setbeamertemplate{frame footer}{My custom footer}
-\begin{frame}[fragile]{Frame footer}
-    \themename defines a custom beamer template to add a text to the footer. It can be set via
-    \begin{verbatim}\setbeamertemplate{frame footer}{My custom footer}\end{verbatim}
-\end{frame}
-}
-
-\begin{frame}{References}
-  Some references to showcase [allowframebreaks] \cite{knuth92,ConcreteMath,Simpson,Er01,greenwade93}
-\end{frame}
-
+  
 \section{Nonlinear Examples}
 
-\begin{frame}{Summary}
-
-  Get the source of this theme and the demo presentation from
-
-  \begin{center}\url{github.com/matze/mtheme}\end{center}
-
-  The theme \emph{itself} is licensed under a
-  \href{http://creativecommons.org/licenses/by-sa/4.0/}{Creative Commons
-  Attribution-ShareAlike 4.0 International License}.
-
-  \begin{center}\ccbysa\end{center}
-
+\begin{frame}[fragile]{Nonlinear Examples}
+  We solve some nonlinear problems where it is possible to obtain an explicit solution to the coupled state-costate equations given in the Minimum Principle. At the same time, we also give several extensions of this result.
 \end{frame}
-
+  
+\begin{frame}[fragile]{Example 11.5.1: Bilinear System}
+  Consider the control of a bilinear system, defined by the differential equation:
+  \[
+  \dot{x} = ux, \quad x(0) = x_0 > 0, \quad 0 \le u(t) \le 1
+  \]
+  Suppose the goal is to make \( x \) large while keeping the derivative of \( x \) small on average. The cost criterion is:
+  \[
+  V(u) = \int_0^{t_1} [u(\tau) - 1]x(\tau) \, d\tau
+  \]
+\end{frame}
+  
+\begin{frame}[fragile]{Optimal Control of Bilinear System}
+  The Hamiltonian becomes:
+  \[
+  H(x, p, u, t) = x \{ u(p + 1) - 1 \}
+  \]
+  By the Minimum Principle, the optimal control is:
+  \[
+  u^\circ(t) = \begin{cases}
+  1 & \text{if } p(t) + 1 < 0 \\
+  0 & \text{if } p(t) + 1 > 0 \\
+  \text{unknown} & \text{if } p(t) = -1
+  \end{cases}
+  \]
+\end{frame}
+  
+\begin{frame}[fragile]{Costate and State Equations}
+  The costate and state variables satisfy:
+  \[
+  \dot{p} = -(p + 1)u^\circ + 1
+  \]
+  \[
+  \dot{x}^\circ = u^\circ x^\circ
+  \]
+  with the boundary conditions:
+  \[
+  x^\circ(0) = x_0, \quad p(t_1) = 0
+  \]
+\end{frame}
+  
+\begin{frame}[fragile]{Solving the Differential Equations}
+  If \( t = t_1 \), then \( p(t) + 1 = 1 > 0 \) so \( u^\circ(t) = 0 \). By continuity, if \( t \approx t_1 \), then \( p(t) > 0 \), so \( u^\circ(t) = 0 \) and:
+  \[
+  \dot{p}(t) = 1 \quad \text{for } t \approx t_1 \implies p(t) = t - t_1
+  \]
+  For \( t < t_1 - 1 \), we have \( p(t) + 1 < 0 \) so \( u^\circ(t) = 1 \) and:
+  \[
+  \dot{p} = -p \quad \text{for } t < t_1 - 1 \implies p(t) = -e^{-t + t_1 - 1}
+  \]
+\end{frame}
+  
+\begin{frame}[fragile]{Bang-Bang Control}
+  The optimal control is bang-bang:
+  \[
+  u(t) = \begin{cases}
+  1 & \text{if } t < t_1 - 1 \\
+  0 & \text{if } t > t_1 - 1
+  \end{cases}
+  \]
+  The optimal state trajectory is:
+  \[
+  \dot{x}^\circ(t) = \begin{cases}
+  x^\circ(t) & \text{if } t < t_1 - 1 \\
+  0 & \text{if } t > t_1 - 1
+  \end{cases}
+  \]
+  \[
+  x^\circ(t) = \begin{cases}
+  x_0 e^t & \text{if } t < t_1 - 1 \\
+  x_0 e^{t_1 - 1} & \text{if } t > t_1 - 1
+  \end{cases}
+  \]
+\end{frame}
+  
+\begin{frame}[fragile]{Minimum Principle with Constraints}
+  Suppose \( x(t_1) \) is free, \( t_1 \) is fixed, and \( u^\circ \) is a solution to the optimal control problem (11.1) under the constraint \( u \in U \). The Minimum Principle with constraints states:
+  \begin{enumerate}
+      \item There exists a costate vector \( p(t) \) such that \( u^\circ(t) = \arg \min_{u \in U} H(x^\circ(t), p(t), u, t) \).
+      \item The pair \( (p, x^\circ) \) satisfy the 2-point boundary value problem.
+  \end{enumerate}
+\end{frame}
+  
+\begin{frame}[fragile]{Example 11.5.1 with Constraints}
+  Consider the bilinear system:
+  \[
+  \dot{x} = ux, \quad x(0) = x_0 > 0, \quad 0 \le u(t) \le 1
+  \]
+  with the cost criterion:
+  \[
+  V(u) = \int_0^{t_1} [u(\tau) - 1] x(\tau) \, d\tau
+  \]
+  The Hamiltonian:
+  \[
+  H(x, p, u, t) = x \{ u(p + 1) - 1 \}
+  \]
+  Optimal control:
+  \[
+  u^\circ(t) = \begin{cases}
+  1 & \text{if } p(t) + 1 < 0 \\
+  0 & \text{if } p(t) + 1 > 0
+  \end{cases}
+  \]
+\end{frame}
+  
+\begin{frame}[fragile]{Costate and State Variables for Constrained Problem}
+  The costate and state variables satisfy:
+  \[
+  \dot{p} = -(p + 1) u^\circ + 1
+  \]
+  \[
+  \dot{x} = u^\circ x
+  \]
+  with boundary conditions \( x^\circ(0) = x_0 \), \( p(t_1) = 0 \).
+\end{frame}
+  
+\begin{frame}[fragile]{Solving the Constrained Problem}
+  If \( t \approx t_1 \):
+  \[
+  p(t) = t - t_1
+  \]
+  For \( t < t_1 - 1 \):
+  \[
+  p(t) = -e^{-t + t_1 - 1}
+  \]
+  The optimal control is bang-bang:
+  \[
+  u(t) = \begin{cases}
+  1 & t < t_1 - 1 \\
+  0 & t > t_1 - 1
+  \end{cases}
+  \]
+\end{frame}
+  
+\begin{frame}[fragile]{Optimal State Trajectory for Constrained Problem}
+  The optimal state trajectory:
+  \[
+  \dot{x}^\circ(t) = \begin{cases}
+  x^\circ(t) & t < t_1 - 1 \\
+  0 & t > t_1 - 1
+  \end{cases}
+  \]
+  \[
+  x^\circ(t) = \begin{cases}
+  x_0 e^t & t < t_1 - 1 \\
+  x_0 e^{t_1 - 1} & t > t_1 - 1
+  \end{cases}
+  \]
+\end{frame}
+  
+\begin{frame}[fragile]{Minimum Principle with Final Value Constraints}
+  Suppose \( t_0, t_1, x(t_0) = x_0 \), and \( x(t_1) = x_1 \) are prespecified. The Minimum Principle with final value constraints states:
+  \begin{enumerate}
+      \item There exists a costate vector \( p(t) \) such that \( u^\circ(t) = \arg \min_u H(x^\circ(t), p(t), u, t) \).
+      \item The pair \( (p, x^\circ) \) satisfy the 2-point boundary value problem.
+  \end{enumerate}
+\end{frame}
+  
+\begin{frame}[fragile]{Example 11.5.2: LQR Problem with Terminal State}
+  Consider the LQR problem with the terminal state specified. The cost criterion is:
+  \[
+  V = \frac{1}{2} \int_0^{t_1} (x^T Q x + u^T R u) \, dt, \quad R > 0, Q \ge 0
+  \]
+  The Hamiltonian:
+  \[
+  H = p (A x + B u) + \frac{1}{2} (x^T Q x + u^T R u)
+  \]
+  The optimal control:
+  \[
+  u^\circ(t) = -R^{-1} B^T p(t)
+  \]
+\end{frame}
+  
+\begin{frame}[fragile]{Costate Equation for LQR Problem}
+  The costate vector satisfies the differential equation:
+  \[
+  \dot{p}(t) = -\frac{\partial H}{\partial x} = -p^T A - x^T Q
+  \]
+  \[
+  (x, p) = \begin{pmatrix}
+  A & -BR^{-1}B^T \\
+  -Q & -A^T
+  \end{pmatrix} \begin{pmatrix}
+  x \\
+  p
+  \end{pmatrix}
+  \]
+  with boundary conditions:
+  \[
+  x(t_0) = x_0, \quad x(t_1) = x_1
+  \]
+\end{frame}
+  
+\begin{frame}[fragile]{State Transition Matrix}
+  Let \( \psi(t, \tau) \) denote the state transition matrix:
+  \[
+  \frac{d}{dt} \psi(t, \tau) = H(t) \psi(t, \tau), \quad \psi(t, t) = I
+  \]
+  Decompose \( \psi(t, \tau) \) as:
+  \[
+  \psi(t, \tau) = \begin{pmatrix}
+  \psi_{11}(t, \tau) & \psi_{12}(t, \tau) \\
+  \psi_{21}(t, \tau) & \psi_{22}(t, \tau)
+  \end{pmatrix}
+  \]
+\end{frame}
+  
+\begin{frame}[fragile]{Solving for Optimal Control}
+  Compute the initial condition \( p(t_0) = p_0 \) to find \( p(t) \) for all \( t \):
+  \[
+  x_1 = x(t_1) = \psi_{11}(t_1, t_0) x_0 + \psi_{12}(t_1, t_0) p_0
+  \]
+  Assuming \( \psi_{12}(t_1, t_0) \) is invertible, we have:
+  \[
+  p_0 = \psi_{12}(t_1, t_0)^{-1} (x_1 - \psi_{11}(t_1, t_0) x_0)
+  \]
+\end{frame}
+  
+\begin{frame}[fragile]{Optimal Control and State Trajectory}
+  For all \( t \):
+  \[
+  p(t) = \psi_{21}(t, t_0) x_0 + \psi_{22}(t, t_0) p_0
+  \]
+  The optimal control is:
+  \[
+  u^\circ(t) = -R^{-1} B^T p(t)
+  \]
+  The optimal state trajectory is:
+  \[
+  x^\circ(t) = \psi_{11}(t, t_0) x_0 + \psi_{12}(t, t_0) p_0, \quad t \ge t_0
+  \]
+\end{frame}
+  
+\begin{frame}[fragile]{Minimum Principle with Free Terminal Time}
+  Suppose \( t_0, x(t_0) = x_0 \) are fixed, and some components of \( x(t_1) \) are specified. The Minimum Principle with free terminal time states:
+  \begin{enumerate}
+      \item There exists a costate vector \( p(t) \) such that \( u^\circ(t) = \arg \min_u H(x^\circ(t), p(t), u, t) \).
+      \item The pair \( (p, x^\circ) \) satisfy the 2-point boundary value problem with modified boundary conditions.
+      \item The unspecified terminal time \( t_1 \) satisfies:
+      \[
+      \frac{\partial m}{\partial t}(x^\circ(t_1), t) + H(x^\circ(t_1), p(t_1), u^\circ(t_1), t_1) = 0
+      \]
+  \end{enumerate}
+\end{frame}
+  
+\begin{frame}[fragile]{Example 11.5.3: Minimum Time Problem}
+  Consider a single input linear state space model:
+  \[
+  \dot{x} = Ax + bu
+  \]
+  We wish to find \( u^\circ \) which drives \( x \) from \( x(0) = x_0 \) to \( x(t_1) = x_1 \) in minimum time, under the constraint \( |u(t)| \le 1 \). The cost criterion is:
+  \[
+  V(u) = t_1 = \int_0^{t_1} 1 \, dt
+  \]
+  The Hamiltonian is:
+  \[
+  H = 1 + p^T(Ax + bu)
+  \]
+\end{frame}
+  
+\begin{frame}[fragile]{Bang-Bang Control Law}
+  Minimizing \( H \) gives a bang-bang control law:
+  \[
+  u^\circ(t) = \begin{cases}
+  1 & \text{if } p(t)^T b < 0 \\
+  -1 & \text{if } p(t)^T b > 0
+  \end{cases}
+  \]
+  If \( A, b \) are time-invariant and the eigenvalues of \( A \) are real, distinct, and negative, then \( p(t)^T b \) changes sign at most \( n - 1 \) times, bounding the number of switching times for the optimal control.
+\end{frame}
+  
+\begin{frame}[fragile]{Costate Equation for Minimum Time Problem}
+  The costate equation is:
+  \[
+  \dot{p} = -\nabla_x H = -A^T p
+  \]
+  Using the final time boundary condition \( H|_{t=t_1} = 0 \):
+  \[
+  1 + p(t_1)^T A x^\circ(t_1) + p(t_1)^T b u^\circ(t_1) = 1 + p(t_1)^T A x^\circ(t_1) - |p(t_1)^T b| = 0
+  \]
+\end{frame}
+  
+\begin{frame}[fragile]{Example: Double Integrator}
+  Consider the double integrator \( \ddot{y} = u \):
+  \[
+  A = \begin{pmatrix} 0 & 1 \\ 0 & 0 \end{pmatrix}, \quad b = \begin{pmatrix} 0 \\ 1 \end{pmatrix}
+  \]
+  The optimal control is:
+  \[
+  u^\circ(t) = -\text{sgn}(p(t)^T b) = -\text{sgn}(p_2(t))
+  \]
+\end{frame}
+  
+\begin{frame}[fragile]{Solving Costate Equations}
+  From the costate equations, for constants \( c_1, c_2 \):
+  \[
+  p_1(t) = c_1, \quad p_2(t) = -c_1 t + c_2
+  \]
+  The optimal control is bang-bang:
+  \[
+  u^\circ(t) = \begin{cases}
+  1 & \text{if } t < t_1 - 1 \\
+  0 & \text{if } t > t_1 - 1
+  \end{cases}
+  \]
+\end{frame}
+  
+\begin{frame}[fragile]{Optimal Trajectories}
+  The optimal state trajectories follow quadratic paths:
+  \[
+  x_1(t) = \begin{cases}
+  \frac{1}{2} (x_2(t))^2 + K_1 & \text{if } u^\circ(t) = 1 \\
+  -\frac{1}{2} (x_2(t))^2 + K_2 & \text{if } u^\circ(t) = -1
+  \end{cases}
+  \]
+\end{frame}
 \end{document}
