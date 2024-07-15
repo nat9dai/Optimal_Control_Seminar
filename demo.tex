@@ -364,22 +364,26 @@
 
 \section{Nonlinear Examples}
 
-\begin{frame}[fragile]{Minimum Principle with constraints}
-  \textbf{Theorem 11.2 (Minimum Principle with constraints)}. Suppose that \( x(t_1) \) is free, \( t_1 \) is fixed, and suppose that \( u^\circ \) is a solution to the optimal control problem (11.1) under the constraint \( u \in \mathcal{U} \). That is,
-
-  \[ V^\circ = \min \{ V(u) : u(t) \in \mathcal{U} \text{ for all } t \}. \]
-  
+\begin{frame}[fragile]{Minimum Principle with Constraints}
+  \textbf{Theorem 11.2 (Minimum Principle with constraints)}. Suppose that \( x(t_1) \) is free, \( t_1 \) is fixed, and suppose that \( u^\circ \) is a solution to the optimal control problem: 
+  \[
+    V^\circ = \min_{u \in \mathcal{U}} V(u)
+  \]
   We then have
-  
   \begin{itemize}
       \item[(a)] There exists a costate vector \( p(t) \) such that
       \[
-      u^\circ (t) = \arg \min_{u \in \mathcal{U}} H(x^\circ (t), p(t), u, t).
+        u^\circ (t) = \arg \min_{u \in \mathcal{U}} H(x^\circ (t), p(t), u, t).
       \]
   
-      \item[(b)] The pair \( (p, x^\circ) \) satisfy the 2-point boundary value problem (11.4), with the two boundary conditions
+      \item[(b)] The pair \( (p, x^\circ) \) satisfy the 2-point boundary value problem:
+      \begin{align*}
+        \dot{x}^\circ(t) &= \nabla_p H(x^\circ(t), p(t), u^\circ(t), t) \quad \left( = f(x^\circ(t), u^\circ(t), t) \right) \\
+        \dot{p}(t) &= -\nabla_x H(x^\circ(t), p(t), u^\circ(t), t),
+      \end{align*}
+      with the two boundary conditions
       \[
-      x(t_0) = x_0; \quad p(t_1) = \frac{\partial}{\partial x} m(x(t_1), t).
+        x(t_0) = x_0; \quad p(t_1) = \frac{\partial}{\partial x} m(x(t_1), t).
       \]
   \end{itemize}
 \end{frame}
@@ -391,21 +395,28 @@
   \]
   Suppose the goal is to make \( x \) large while keeping the derivative of \( x \) small on average. The cost criterion is:
   \[
-  V(u) = \int_0^{t_1} [u(\tau) - 1]x(\tau) \, d\tau
+    V(u) = \int_0^{t_1}\dot{x}(\tau)-x(\tau)d\tau = \int_0^{t_1} [u(\tau) - 1]x(\tau) \, d\tau
+  \]
+  The Hamiltonian becomes:
+  \[
+    H(x, p, u, t) = pf+\ell = x \{ u(p + 1) - 1 \}
   \]
 \end{frame}
   
 \begin{frame}[fragile]{Optimal Control of Bilinear System}
-  The Hamiltonian becomes:
+  By the Minimum Principle:
   \[
-  H(x, p, u, t) = x \{ u(p + 1) - 1 \}
+    \begin{aligned}
+      H(x, p, u, t) &= x \{ u(p + 1) - 1 \} \\
+      \nabla_u H &= x(p + 1)
+    \end{aligned}
   \]
-  By the Minimum Principle, the optimal control is:
+  Since \( x^{\circ}(t) > 0 \) for all $t$, the minimization leads to:
   \[
   u^\circ(t) = \begin{cases}
   1 & \text{if } p(t) + 1 < 0 \\
   0 & \text{if } p(t) + 1 > 0 \\
-  \text{unknown} & \text{if } p(t) = -1
+  \text{unknown} & \text{if } p(t)+1 = 0
   \end{cases}
   \]
 \end{frame}
