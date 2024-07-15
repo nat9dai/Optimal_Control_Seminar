@@ -37,15 +37,11 @@
 
 \section{Minimum Principle and Lagrange Multipliers}
 
-\begin{frame}{Introduction}
-  Optimal control involves minimizing a functional similar to ordinary optimization in finite dimensions. For unconstrained optimization, we find stationary points where the derivative of the function is zero. This concept extends to infinite dimensions in the calculus of variations.
-\end{frame}
-
 \begin{frame}{Lagrange Multipliers in Finite Dimensions}
   Consider an optimization problem with constraint \( g(x) = \mathbf{0} \), where \(g:\mathbb{R}^{m}\rightarrow \mathbb{R}^{d}\):
   \[
     \begin{aligned}
-      &\underset{x}{\min}V(x) \\
+      &\min_x V(x) \\
       &\text{s.t. } g(x) = \mathbf{0}
     \end{aligned}
   \]
@@ -56,7 +52,7 @@
   where \( p \) is a Lagrange multiplier. If \( x^0, p^0 \) is a stationary point, then:
   \[
   \begin{aligned}
-    \nabla_x \hat{V}(x^0, p^0) &= \nabla V(x^0) + \nabla g(x^0) p^0 = \mathbf{0}\\
+    \nabla_x \hat{V}(x^0, p^0) &= \nabla_x V(x^0) + \nabla_x g(x^0) p^0 = \mathbf{0}\\
     \nabla_p \hat{V}(x^0, p^0) &= g(x^0) = \mathbf{0}
   \end{aligned}
   \]
@@ -70,7 +66,7 @@
   \end{figure}
   \[
     \begin{aligned}
-      \nabla_x \hat{V}(x^0, p^0) &= \nabla V(x^0) + \nabla g(x^0) p^0 = \mathbf{0}\\
+      \nabla_x \hat{V}(x^0, p^0) &= \nabla_x V(x^0) + \nabla_x g(x^0) p^0 = \mathbf{0}\\
       \nabla_p \hat{V}(x^0, p^0) &= g(x^0) = \mathbf{0}
     \end{aligned}
   \]
@@ -91,32 +87,72 @@
 \end{frame}
 
 \begin{frame}{Steps to Extend the Lagrange Multiplier Method}
-\begin{enumerate}
-    \item **Append state equations:** Define a new cost functional including the state dynamics:
-    \[
-    \hat{V}(x, u) = \int_{t_0}^{t_1} \ell \, dt + m(x(t_1)) + \int_{t_0}^{t_1} p^T (f - \dot{x}) \, dt
-    \]
-    \item **Integration by parts:** Eliminate the derivative of \( x \):
-    \[
-    \int_{t_0}^{t_1} p^T \dot{x} \, dt = \left[ p^T x \right]_{t_0}^{t_1} - \int_{t_0}^{t_1} \dot{p}^T x \, dt
-    \]
-    \item **Define the Hamiltonian:**
-    \[
-    H(x, p, u, t) = \ell(x, u, t) + p^T f(x, u, t)
-    \]
-\end{enumerate}
+  Let us consider a constrained functional optimization problem:
+  \[
+    \begin{aligned}
+      &\min_u V(x,u)=\int \ell d \tau + m \\
+      &\text{s.t. } \dot{x}-f=\mathbf{0}, \quad x\in D^{n}[t_{0},t_{1}], u \in D^{m}[t_{0},t_{1}].
+    \end{aligned}
+  \]
+  \begin{enumerate}
+      \item \textbf{Append state equations:} Define a new cost functional including the state dynamics:
+      \[
+      \hat{V}(x, u) = \int_{t_0}^{t_1} \ell \, dt + m(x(t_1)) + \int_{t_0}^{t_1} p^T (f - \dot{x}) \, dt
+      \]
+      \item \textbf{Integration by parts:} Eliminate the derivative of \( x \):
+      \[
+      \int_{t_0}^{t_1} p^T \dot{x} \, dt = p^T x |_{t_0}^{t_1} - \int_{t_0}^{t_1} \dot{p}^T x \, dt
+      \]
+  \end{enumerate}
 \end{frame}
 
 \begin{frame}{Steps to Extend the Lagrange Multiplier Method (cont.)}
-\begin{enumerate}
+  \begin{enumerate}
+      \setcounter{enumi}{2}
+      \item \textbf{Define the Hamiltonian:}
+      \[
+      H(x, p, u, t) := \ell(x, u, t) + p^T f(x, u, t)
+      \]
+      \[
+        \begin{aligned}
+          \hat{V}(x, u) = &\int_{t_0}^{t_1} H(x, p, u, t) \, dt + \int_{t_0}^{t_1}\dot{p}^{\top}xdt \\ 
+          &+ p^{\top}(t_0)x(t_0) - p^{\top}(t_1)x(t_1) + m(x(t_1))
+        \end{aligned}
+      \]
+      \item \textbf{Compute variations:} For perturbations \( x(t, \epsilon) = x^\circ(t) + \epsilon \eta(t) \) and \( u(t, \delta) = u^\circ(t) + \delta \psi(t) \), let \(\hat{V}(\epsilon)=\hat{V}(x^{\circ}+\epsilon \eta,u^{\circ}) \), and \(\hat{V}(\delta)\)=\(\hat{V}(x^{\circ},u^{\circ}+\delta \psi)\).
+      \[
+      \begin{aligned}
+        &\frac{d}{d\epsilon} \hat{V}(\epsilon) = \int_{t_0}^{t_1} \frac{\partial}{\partial x} H(x^\circ, p, u^\circ, t) \eta(t) \, dt + \int_{t_0}^{t_1} \dot{p}^T \eta(t) \, dt \\
+        &- p^T(t_1) \eta(t_1) + p^T(t_0) \eta(t_0) + \frac{\partial}{\partial x} m(x^\circ(t_1)) \eta(t_1) = 0.
+      \end{aligned}
+      \]
+      Similarly, by considering perturbations in \( u^{\circ} \):
+      \[
+         \frac{d}{d\delta} \hat{V}(\delta) =\int_{t_0}^{t_1}\frac{\partial}{\partial u}H(x^{\circ},p,u^{\circ},t)\psi(t)dt=0
+      \]
+  \end{enumerate}
+\end{frame}
+
+\begin{frame}{Steps to Extend the Lagrange Multiplier Method (cont.)}
+  \begin{enumerate}
     \setcounter{enumi}{3}
-    \item **Compute variations:** For perturbations \( x(t, \epsilon) = x^\circ(t) + \epsilon \eta(t) \) and \( u(t, \delta) = u^\circ(t) + \delta \psi(t) \), set \( \frac{d}{d\epsilon} \hat{V}(\epsilon) = 0 \) and \( \frac{d}{d\delta} \hat{V}(\delta) = 0 \).
-    \item **Derive necessary conditions:** From the variations, derive the equations:
+    \item \textbf{Compute variations:} Determine perturbations in \(x^{\circ}\):
     \[
-    \dot{p} = -\frac{\partial H}{\partial x}, \quad p(t_1) = \frac{\partial m}{\partial x}(x(t_1))
+    \begin{aligned}
+      &\int_{t_0}^{t_1} \frac{\partial}{\partial x} H(x^\circ, p, u^\circ, t) \eta(t) \, dt + \int_{t_0}^{t_1} \dot{p}^T \eta(t) \, dt \\
+      &- p^T(t_1) \eta(t_1) + p^T(t_0) \eta(t_0) + \frac{\partial}{\partial x} m(x^\circ(t_1)) \eta(t_1) = 0.
+    \end{aligned}
+    \]
+    Similarly, by considering perturbations in \( u^{\circ} \):
+    \[
+       \int_{t_0}^{t_1}\frac{\partial}{\partial u}H(x^{\circ},p,u^{\circ},t)\psi(t)dt=0
+    \]
+    \item \textbf{Derive necessary conditions:} From the variations, derive the equations:
+    \[
+    \dot{p} = -\nabla_x H, \quad p(t_1) = \nabla_x m(x(t_1))
     \]
     \[
-    \frac{\partial H}{\partial u} = 0
+    \nabla_u H = \mathbf{0}
     \]
 \end{enumerate}
 \end{frame}
@@ -124,38 +160,101 @@
 \begin{frame}{Deriving the Minimum Principle}
   Combine the steps to derive the Minimum Principle. If \( u^\circ \) is optimal, there exists a costate \( p(t) \) such that:
   \[
-  u^\circ(t) = \arg \min_u H(x^\circ(t), p(t), u, t)
+  u^\circ(t) \in \arg \min_u H(x^\circ(t), p(t), u, t)
   \]
   The state and costate satisfy:
   \[
-  \dot{x}^\circ = \frac{\partial H}{\partial p}, \quad \dot{p} = -\frac{\partial H}{\partial x}
+  \dot{x}^\circ = \nabla_p H, \quad \dot{p} = -\nabla_x H
   \]
   with boundary conditions:
   \[
-  x(t_0) = x_0, \quad p(t_1) = \frac{\partial m}{\partial x}(x(t_1))
+  x(t_0) = x_0, \quad p(t_1) = \nabla_x m(x(t_1))
   \]
 \end{frame}
   
 \section{The Penalty Approach}
   
 \begin{frame}[fragile]{The Penalty Approach}
-  A third heuristic approach to the Minimum Principle involves relaxing the hard constraint \( \dot{x} - f = 0 \), and instead imposing a large, yet "soft" constraint.
+  Another approach to the Minimum Principle involves relaxing the hard constraint \( \dot{x} - f = 0 \), and instead imposing a large, yet "soft" constraint by  definiong the cost function:
   \[
   \hat{V}(x, u) = \int_{t_0}^{t_1} \ell(x(t), u(t), t) \, dt + \frac{k}{2} \int_{t_0}^{t_1} |\dot{x}(t) - f(x(t), u(t), t)|^2 \, dt + m(x(t_1))
   \]
-  \end{frame}
-  
-  \begin{frame}[fragile]{Perturbation and Optimality}
   If \( (x_k, u_k) \) minimizes \( \hat{V}_k \), and letting \( (x^\circ, u^\circ) \) denote a solution to the original problem:
   \[
   \hat{V}_k(x_k, u_k) \leq \hat{V}_k(x^\circ, u^\circ) = V^\circ
   \]
-  Assuming \( \ell \) and \( m \) are positive, this gives the uniform bound:
+  Assuming \( \ell \) and \( m \) are positive, subtracting the left side of the above inequality gives the uniform bound:
   \[
   \int_{t_0}^{t_1} |\dot{x}(t) - f(x(t), u(t), t)|^2 \, dt \leq \frac{2}{k} V^\circ
   \]
 \end{frame}
   
+\begin{frame}[fragile]{Implications for Large \( k \)}
+  As \( k \) becomes large, the term \( \frac{k}{2} \int_{t_0}^{t_1} |\dot{x}(t) - f(x(t), u(t), t)|^2 \, dt \) ensures that \( \dot{x}(t) \approx f(x(t), u(t), t) \):
+  \[
+    \int_{t_0}^{t_1} |\dot{x}(t) - f(x(t), u(t), t)|^2 \, dt \rightarrow 0 \text{ as } k \rightarrow \infty
+  \]
+  Thus, for large \( k \), the pair \( (x_k, u_k) \) will approximately satisfy the differential equation \( \dot{x} = f \).
+\end{frame}
+  
+\begin{frame}[fragile]{Perturbation Analysis}
+  If we perturb \( x_k \) to form \( x_k + \epsilon \eta \) and define \( \hat{V}(\epsilon) = \hat{V}(x_k + \epsilon \eta, u_k) \), then we must have:
+  \[
+  \frac{d}{d\epsilon} \hat{V}(\epsilon) \bigg|_{\epsilon=0} = 0
+  \]
+  Using the definition of \( \hat{V} \), we get:
+  \[
+  \begin{aligned}
+    \hat{V}(\epsilon) = &\int_{t_0}^{t_1} \ell(x_k(t) + \epsilon \eta(t), u_k(t), t) \, dt + m(x_k(t_1) + \epsilon \eta(t_1)) \\
+    &+ \frac{k}{2} \int_{t_0}^{t_1} |\dot{x}_k(t) + \epsilon \dot{\eta}(t) - f(x_k(t) + \epsilon \eta(t), u_k(t), t)|^2 \, dt
+  \end{aligned}
+  \]
+\end{frame}
+  
+\begin{frame}[fragile]{Computing the Derivative}
+  The derivative of this expression with respect to \( \epsilon \) can be computed as follows:
+  \[
+    \begin{aligned}
+      \frac{d}{d\epsilon} \hat{V}(0) &= \int_{t_0}^{t_1} \frac{\partial \ell}{\partial x} (x_k(t), u_k(t), t) \eta(t) \, dt \\
+      &+ k \int_{t_0}^{t_1} (\dot{x}_k(t) - f(x_k(t), u_k(t), t))^T [\dot{\eta}(t) - \frac{\partial f}{\partial x} (x_k(t), u_k(t), t) \eta(t)] \, dt \\
+      &+ \frac{\partial m}{\partial x} (x_k(t_1)) \eta(t_1) \\
+      & = 0
+    \end{aligned}
+  \]
+\end{frame}
+  
+\begin{frame}[fragile]{Computing the Derivative (cont.)}
+  To eliminate the derivative term \( \dot{\eta} \), we integrate by parts:
+  \[
+  \begin{aligned}
+    &\int_{t_0}^{t_1} \left\{ \frac{\partial \ell}{\partial x} (x_k(t), u_k(t), t) + p_k(t)^T \frac{\partial f}{\partial x} (x_k(t), u_k(t), t) + \frac{d}{dt} \left( p_k(t)^T \right) \right\} \eta(t) \, dt \\
+    &- p_k(t_1)^T \eta(t_1) + \frac{\partial m}{\partial x} (x_k(t_1)) \eta(t_1) \\
+    & = 0
+  \end{aligned}
+  \]
+  where we have set \( p_k(t) = -k (\dot{x}_k(t) - f(x_k(t), u_k(t), t)) \).
+\end{frame}
+
+\begin{frame}[fragile]{Resulting Equations}
+  Since \( \eta \) is arbitrary, we have:
+  \[
+    \begin{aligned}
+      \mathbf{0} &= \frac{d}{dt} \left( p_k(t)^T \right) + \frac{\partial \ell}{\partial x} (x_k(t), u_k(t), t) + p_k(t)^T \frac{\partial f}{\partial x} (x_k(t), u_k(t), t) \\
+      \mathbf{0} &= \frac{d}{dt} \left( p_k(t)^T \right) + \frac{\partial H}{\partial x} (x_k(t), p_k(t), u_k(t), t) \\
+      \dot{p}_{k} &= -\nabla_x H
+    \end{aligned}
+  \]
+  with the boundary condition:
+  \[
+    p_k(t_1) = \nabla_x m(x_k(t_1))
+  \]
+  Considering perturbations in \( u \) gives the equation:
+  \[
+    \nabla_u H (x_k(t), p_k(t), u_k(t), t) = \mathbf{0}
+  \]
+  This is a weak form of the Minimum Principle for the perturbed problem.
+\end{frame}
+
 \section{Application to LQR}
   
 \begin{frame}[fragile]{Application to LQR}
@@ -167,7 +266,7 @@
   V = \int_{t_0}^{t_1} (x^T Q x + u^T R u) \, dt + x^T(t_1) M x(t_1)
   \]
 \end{frame}
-  
+
 \begin{frame}[fragile]{Solving the LQR Problem}
   The Hamiltonian:
   \[
@@ -179,17 +278,110 @@
   \]
   Resulting in:
   \[
-  \dot{x} = Ax - \frac{1}{2} BR^{-1} B^T p
+  \dot{x} = Ax + Bu = Ax - \frac{1}{2} BR^{-1} B^T p
   \]
+  Through the expression \( \nabla_x H = 2Qx + A^T p \), we find that \( \dot{p} \) is:
   \[
   \dot{p} = -\nabla_x H = -2Q x - A^T p
   \]
 \end{frame}
   
+\begin{frame}[fragile]{Solving the LQR Problem (cont.)}
+  The equations form the coupled set of differential equations:
+  \[
+  \begin{pmatrix}
+  \dot{x} \\
+  \dot{p}
+  \end{pmatrix}
+  =
+  \begin{pmatrix}
+  A & -\frac{1}{2} BR^{-1} B^T \\
+  -2Q & -A^T
+  \end{pmatrix}
+  \begin{pmatrix}
+  x \\
+  p
+  \end{pmatrix}
+  \]
+  with boundary conditions:
+  \[
+  x(t_0) = x_0
+  \]
+  \[
+  p(t_1) = \nabla_x m(x_k(t_1)) = 2Mx(t_1)
+  \]
+  If we scale \( p \) by defining \( \lambda = \frac{1}{2} p \), we get:
+  \[
+  \begin{pmatrix}
+  \dot{x} \\
+  \dot{\lambda}
+  \end{pmatrix}
+  =
+  \begin{pmatrix}
+  A & -BR^{-1} B^T \\
+  -Q & -A^T
+  \end{pmatrix}
+  \begin{pmatrix}
+  x \\
+  \lambda
+  \end{pmatrix} = \mathcal{H}   \begin{pmatrix}
+    x \\
+    \lambda
+    \end{pmatrix}
+  \]
+  with the optimal control:
+  \[
+  u^\circ(t) = -R^{-1} B^T \lambda(t)
+  \]
+\end{frame}
+
+\begin{frame}[fragile]{Solving the ODE}
+  This ODE can be solved using the \textit{sweep method}. Suppose that \( \lambda(t) = P(t)x(t) \). Then:
+  \[
+  \dot{\lambda} = \dot{P} x + P (Ax + Bu)
+  \]
+  Substituting \( u^\circ = -R^{-1} B^{\top} \lambda = -R^{-1} B^{\top} P x \) gives:
+  \[
+  \dot{\lambda} = \dot{P} x + P (Ax - BR^{-1} B^{\top} P x)
+  \]
+  From the coupled ODE with \(\mathcal{H}\) above, we also have:
+  \[
+  \dot{\lambda} = -Qx - A^{\top} \lambda = -Qx - A^{\top} P x
+  \]
+  Equating the two expressions for \( \dot{\lambda} \) gives the Riccati Differential Equation:
+  \[
+  \dot{P} x + P (Ax - BR^{-1} B^{\top} P x) = -Qx - A^{\top} P x
+  \]
+\end{frame}
+
+\begin{frame}[fragile]{Boundary Condition}
+  The boundary condition for \( \lambda \) is:
+  \[
+  \lambda = \frac{1}{2} p = \frac{1}{2} \nabla_x m(x(t_1)) \implies P(t_1) = M
+  \]
+  Solving for \( P(t) \) gives \( \lambda(t) \), which in turn gives \( p(t) \).
+\end{frame}
+
 \section{Nonlinear Examples}
 
-\begin{frame}[fragile]{Nonlinear Examples}
-  We solve some nonlinear problems where it is possible to obtain an explicit solution to the coupled state-costate equations given in the Minimum Principle. At the same time, we also give several extensions of this result.
+\begin{frame}[fragile]{Minimum Principle with constraints}
+  \textbf{Theorem 11.2 (Minimum Principle with constraints)}. Suppose that \( x(t_1) \) is free, \( t_1 \) is fixed, and suppose that \( u^\circ \) is a solution to the optimal control problem (11.1) under the constraint \( u \in \mathcal{U} \). That is,
+
+  \[ V^\circ = \min \{ V(u) : u(t) \in \mathcal{U} \text{ for all } t \}. \]
+  
+  We then have
+  
+  \begin{itemize}
+      \item[(a)] There exists a costate vector \( p(t) \) such that
+      \[
+      u^\circ (t) = \arg \min_{u \in \mathcal{U}} H(x^\circ (t), p(t), u, t).
+      \]
+  
+      \item[(b)] The pair \( (p, x^\circ) \) satisfy the 2-point boundary value problem (11.4), with the two boundary conditions
+      \[
+      x(t_0) = x_0; \quad p(t_1) = \frac{\partial}{\partial x} m(x(t_1), t).
+      \]
+  \end{itemize}
 \end{frame}
   
 \begin{frame}[fragile]{Example 11.5.1: Bilinear System}
