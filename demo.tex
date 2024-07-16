@@ -364,8 +364,8 @@
 
 \section{Nonlinear Examples}
 
-\begin{frame}[fragile]{Minimum Principle with Constraints}
-  \textbf{Theorem 11.2 (Minimum Principle with constraints)}. Suppose that \( x(t_1) \) is free, \( t_1 \) is fixed, and suppose that \( u^\circ \) is a solution to the optimal control problem: 
+\begin{frame}[fragile]{Minimum Principle with Input Constraints}
+  \textbf{Theorem 11.2}. Suppose that \( x(t_1) \) is free, \( t_1 \) is fixed, and suppose that \( u^\circ \) is a solution to the optimal control problem: 
   \[
     V^\circ = \min_{u \in \mathcal{U}} V(u)
   \]
@@ -383,7 +383,7 @@
       \end{align*}
       with the two boundary conditions
       \[
-        x(t_0) = x_0; \quad p(t_1) = \frac{\partial}{\partial x} m(x(t_1), t).
+        x(t_0) = x_0; \quad p(t_1) = \nabla_x m(x(t_1), t).
       \]
   \end{itemize}
 \end{frame}
@@ -403,7 +403,7 @@
   \]
 \end{frame}
   
-\begin{frame}[fragile]{Optimal Control of Bilinear System}
+\begin{frame}[fragile]{Example 11.5.1: Bilinear System (cont.)}
   By the Minimum Principle:
   \[
     \begin{aligned}
@@ -421,46 +421,40 @@
   \]
 \end{frame}
   
-\begin{frame}[fragile]{Costate and State Equations}
-  The costate and state variables satisfy:
+\begin{frame}[fragile]{Example 11.5.1: Bilinear System (cont.)}
+  The costate and state variables satisfy the differential equations:
   \[
-  \dot{p} = -(p + 1)u^\circ + 1
+  \begin{aligned}
+    \dot{p} &= - \frac{\partial H}{\partial x} = -(p+1)u^{\circ}+1 \\
+    \dot{x} &= \frac{\partial H}{\partial p} = u^{\circ}x^{\circ}
+  \end{aligned}
   \]
+  with boundary conditions:
   \[
-  \dot{x}^\circ = u^\circ x^\circ
-  \]
-  with the boundary conditions:
-  \[
-  x^\circ(0) = x_0, \quad p(t_1) = 0
+    x^{\circ}(0)=x_0, \quad p(t_1)=\frac{\partial m}{\partial x} = 0
   \]
 \end{frame}
   
-\begin{frame}[fragile]{Solving the Differential Equations}
+\begin{frame}[fragile]{Example 11.5.1: Bilinear System (cont.)}
+  \textbf{Solving the Differential Equations}
+  
   If \( t = t_1 \), then \( p(t) + 1 = 1 > 0 \) so \( u^\circ(t) = 0 \). By continuity, if \( t \approx t_1 \), then \( p(t) > 0 \), so \( u^\circ(t) = 0 \) and:
   \[
   \dot{p}(t) = 1 \quad \text{for } t \approx t_1 \implies p(t) = t - t_1
   \]
-  For \( t < t_1 - 1 \), we have \( p(t) + 1 < 0 \) so \( u^\circ(t) = 1 \) and:
+  For \( t < t_1 - 1 \), we have \( p(t) + 1 < 0 \) so \( u^\circ(t) = 1 \). Since $p(t_1-1)=-1$, we have:
   \[
   \dot{p} = -p \quad \text{for } t < t_1 - 1 \implies p(t) = -e^{-t + t_1 - 1}
   \]
 \end{frame}
-  
-\begin{frame}[fragile]{Bang-Bang Control}
-  The optimal control is bang-bang:
-  \[
-  u(t) = \begin{cases}
-  1 & \text{if } t < t_1 - 1 \\
-  0 & \text{if } t > t_1 - 1
-  \end{cases}
-  \]
+
+\begin{frame}[fragile]{Example 11.5.1: Bilinear System (cont.)}
+  \begin{figure}
+    \centering
+    \includegraphics[width=1\textwidth]{photos/3.png}
+    \caption{The costate trajectory, optimal control, and optimal state trajectory for the bilinear model.}
+  \end{figure}
   The optimal state trajectory is:
-  \[
-  \dot{x}^\circ(t) = \begin{cases}
-  x^\circ(t) & \text{if } t < t_1 - 1 \\
-  0 & \text{if } t > t_1 - 1
-  \end{cases}
-  \]
   \[
   x^\circ(t) = \begin{cases}
   x_0 e^t & \text{if } t < t_1 - 1 \\
@@ -468,94 +462,34 @@
   \end{cases}
   \]
 \end{frame}
-  
-\begin{frame}[fragile]{Minimum Principle with Constraints}
-  Suppose \( x(t_1) \) is free, \( t_1 \) is fixed, and \( u^\circ \) is a solution to the optimal control problem (11.1) under the constraint \( u \in U \). The Minimum Principle with constraints states:
-  \begin{enumerate}
-      \item There exists a costate vector \( p(t) \) such that \( u^\circ(t) = \arg \min_{u \in U} H(x^\circ(t), p(t), u, t) \).
-      \item The pair \( (p, x^\circ) \) satisfy the 2-point boundary value problem.
-  \end{enumerate}
-\end{frame}
-  
-\begin{frame}[fragile]{Example 11.5.1 with Constraints}
-  Consider the bilinear system:
-  \[
-  \dot{x} = ux, \quad x(0) = x_0 > 0, \quad 0 \le u(t) \le 1
-  \]
-  with the cost criterion:
-  \[
-  V(u) = \int_0^{t_1} [u(\tau) - 1] x(\tau) \, d\tau
-  \]
-  The Hamiltonian:
-  \[
-  H(x, p, u, t) = x \{ u(p + 1) - 1 \}
-  \]
-  Optimal control:
-  \[
-  u^\circ(t) = \begin{cases}
-  1 & \text{if } p(t) + 1 < 0 \\
-  0 & \text{if } p(t) + 1 > 0
-  \end{cases}
-  \]
-\end{frame}
-  
-\begin{frame}[fragile]{Costate and State Variables for Constrained Problem}
-  The costate and state variables satisfy:
-  \[
-  \dot{p} = -(p + 1) u^\circ + 1
-  \]
-  \[
-  \dot{x} = u^\circ x
-  \]
-  with boundary conditions \( x^\circ(0) = x_0 \), \( p(t_1) = 0 \).
-\end{frame}
-  
-\begin{frame}[fragile]{Solving the Constrained Problem}
-  If \( t \approx t_1 \):
-  \[
-  p(t) = t - t_1
-  \]
-  For \( t < t_1 - 1 \):
-  \[
-  p(t) = -e^{-t + t_1 - 1}
-  \]
-  The optimal control is bang-bang:
-  \[
-  u(t) = \begin{cases}
-  1 & t < t_1 - 1 \\
-  0 & t > t_1 - 1
-  \end{cases}
-  \]
-\end{frame}
-  
-\begin{frame}[fragile]{Optimal State Trajectory for Constrained Problem}
-  The optimal state trajectory:
-  \[
-  \dot{x}^\circ(t) = \begin{cases}
-  x^\circ(t) & t < t_1 - 1 \\
-  0 & t > t_1 - 1
-  \end{cases}
-  \]
-  \[
-  x^\circ(t) = \begin{cases}
-  x_0 e^t & t < t_1 - 1 \\
-  x_0 e^{t_1 - 1} & t > t_1 - 1
-  \end{cases}
-  \]
-\end{frame}
-  
+
 \begin{frame}[fragile]{Minimum Principle with Final Value Constraints}
-  Suppose \( t_0, t_1, x(t_0) = x_0 \), and \( x(t_1) = x_1 \) are prespecified. The Minimum Principle with final value constraints states:
-  \begin{enumerate}
-      \item There exists a costate vector \( p(t) \) such that \( u^\circ(t) = \arg \min_u H(x^\circ(t), p(t), u, t) \).
-      \item The pair \( (p, x^\circ) \) satisfy the 2-point boundary value problem.
-  \end{enumerate}
+  \textbf{Theorem 11.3}. Suppose that \( t_0, t_1, x(t_0) = x_0 \), and \( x(t_1) = x_1 \) are prespecified, and suppose that \( u^\circ \) is a solution to the optimal control
+  \begin{align*}
+    \dot{x}(t) &= f(x(t), u(t), t), \quad x(t_0) = x_0 \in \mathbb{R}^n \\
+    V(u) &= \int_{t_0}^{t_1} \ell(x(t), u(t), t) \, dt + m(x(t_1)),
+  \end{align*}
+  subject to those constraints. Then
+  \begin{itemize}
+      \item[(a)] There exists a costate vector \( p(t) \) such that
+      \[
+      u^\circ (t) = \arg \min_{u} H(x^\circ (t), p(t), u, t).
+      \]
+      \item[(b)] The pair \( (p, x^\circ) \) satisfy the 2-point boundary value problem 
+      \[
+      \dot{x}^\circ = \nabla_p H, \quad \dot{p} = -\nabla_x H,
+      \]
+      with the two boundary conditions
+      \[
+      x(t_0) = x_0; \quad x(t_1) = x_1.
+      \]
+  \end{itemize}
 \end{frame}
   
 \begin{frame}[fragile]{Example 11.5.2: LQR Problem with Terminal State}
-  Consider the LQR problem with the terminal state specified. The cost criterion is:
+  Consider the LQR problem with the terminal state specified, $x(t_1)=x_1$. The cost criterion is:
   \[
-  V = \frac{1}{2} \int_0^{t_1} (x^T Q x + u^T R u) \, dt, \quad R > 0, Q \ge 0
+  V = \frac{1}{2} \int_0^{t_1} (x^T Q x + u^T R u) \, dt, \quad R \succ 0, Q \succeq 0
   \]
   The Hamiltonian:
   \[
@@ -567,13 +501,16 @@
   \]
 \end{frame}
   
-\begin{frame}[fragile]{Costate Equation for LQR Problem}
+\begin{frame}[fragile]{Example 11.5.2: LQR Problem with Terminal State (cont.)}
   The costate vector satisfies the differential equation:
   \[
   \dot{p}(t) = -\frac{\partial H}{\partial x} = -p^T A - x^T Q
   \]
   \[
-  (x, p) = \begin{pmatrix}
+    \begin{pmatrix}
+      \dot{x} \\
+      \dot{p}
+      \end{pmatrix} = \begin{pmatrix}
   A & -BR^{-1}B^T \\
   -Q & -A^T
   \end{pmatrix} \begin{pmatrix}
@@ -587,10 +524,10 @@
   \]
 \end{frame}
   
-\begin{frame}[fragile]{State Transition Matrix}
+\begin{frame}[fragile]{Example 11.5.2: LQR Problem with Terminal State (cont.)}
   Let \( \psi(t, \tau) \) denote the state transition matrix:
   \[
-  \frac{d}{dt} \psi(t, \tau) = H(t) \psi(t, \tau), \quad \psi(t, t) = I
+  \frac{d}{dt} \psi(t, \tau) = \mathcal{H}(t) \psi(t, \tau), \quad \psi(t, t) = I
   \]
   Decompose \( \psi(t, \tau) \) as:
   \[
@@ -601,7 +538,7 @@
   \]
 \end{frame}
   
-\begin{frame}[fragile]{Solving for Optimal Control}
+\begin{frame}[fragile]{Example 11.5.2: LQR Problem with Terminal State (cont.)}
   Compute the initial condition \( p(t_0) = p_0 \) to find \( p(t) \) for all \( t \):
   \[
   x_1 = x(t_1) = \psi_{11}(t_1, t_0) x_0 + \psi_{12}(t_1, t_0) p_0
@@ -612,7 +549,7 @@
   \]
 \end{frame}
   
-\begin{frame}[fragile]{Optimal Control and State Trajectory}
+\begin{frame}[fragile]{Example 11.5.2: LQR Problem with Terminal State (cont.)}
   For all \( t \):
   \[
   p(t) = \psi_{21}(t, t_0) x_0 + \psi_{22}(t, t_0) p_0

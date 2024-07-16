@@ -1,4 +1,4 @@
-This is pdfTeX, Version 3.141592653-2.6-1.40.26 (MiKTeX 24.4) (preloaded format=pdflatex 2024.7.13)  16 JUL 2024 02:05
+This is pdfTeX, Version 3.141592653-2.6-1.40.26 (MiKTeX 24.4) (preloaded format=pdflatex 2024.7.13)  16 JUL 2024 17:00
 entering extended mode
  restricted \write18 enabled.
  file:line:error style messages enabled.
@@ -1135,11 +1135,21 @@ Overfull \hbox (18.26918pt too wide) detected at line 9
 ]
 \openout4 = `demo.vrb'.
 
- (demo.vrb)
+ (demo.vrb
+<photos/3.png, id=212, 648.92438pt x 227.85126pt>
+File: photos/3.png Graphic file (type png)
+<use photos/3.png>
+Package pdftex.def Info: photos/3.png  used on input line 4.
+(pdftex.def)             Requested size: 307.28987pt x 107.8967pt.
+)
+Overfull \vbox (0.1015pt too high) detected at line 464
+ []
+
+
 
 [30
 
-]
+ <./photos/3.png>]
 \openout4 = `demo.vrb'.
 
  (demo.vrb)
@@ -1231,41 +1241,6 @@ Overfull \hbox (18.26918pt too wide) detected at line 9
 [43
 
 ]
-\openout4 = `demo.vrb'.
-
- (demo.vrb)
-
-[44
-
-]
-\openout4 = `demo.vrb'.
-
- (demo.vrb)
-
-[45
-
-]
-\openout4 = `demo.vrb'.
-
- (demo.vrb)
-
-[46
-
-]
-\openout4 = `demo.vrb'.
-
- (demo.vrb)
-
-[47
-
-]
-\openout4 = `demo.vrb'.
-
- (demo.vrb)
-
-[48
-
-]
 \tf@nav=\write6
 \openout6 = `demo.nav'.
 
@@ -1284,17 +1259,17 @@ Package rerunfilecheck Info: File `demo.out' has not changed.
 (rerunfilecheck)             Checksum: 41AD98515F5E8FE6B1C05F3F2655028F;689.
  ) 
 Here is how much of TeX's memory you used:
- 37441 strings out of 473904
- 898144 string characters out of 5727072
+ 37418 strings out of 473904
+ 897696 string characters out of 5727072
  1941908 words of memory out of 5000000
- 59436 multiletter control sequences out of 15000+600000
+ 59433 multiletter control sequences out of 15000+600000
  572978 words of font info for 89 fonts, out of 8000000 for 9000
  1141 hyphenation exceptions out of 8191
  128i,13n,123p,1958b,788s stack positions out of 10000i,1000n,20000p,200000b,200000s
 <C:/Users/ASUS/AppData/Local/Programs/MiKTeX/fonts/type1/public/amsfonts/cm/cmex10.pfb><C:/Users/ASUS/AppData/Local/Programs/MiKTeX/fonts/type1/public/amsfonts/cm/cmmi10.pfb><C:/Users/ASUS/AppData/Local/Programs/MiKTeX/fonts/type1/public/amsfonts/cm/cmmi7.pfb><C:/Users/ASUS/AppData/Local/Programs/MiKTeX/fonts/type1/public/amsfonts/cm/cmmi9.pfb><C:/Users/ASUS/AppData/Local/Programs/MiKTeX/fonts/type1/public/amsfonts/cm/cmss10.pfb><C:/Users/ASUS/AppData/Local/Programs/MiKTeX/fonts/type1/public/amsfonts/cm/cmss8.pfb><C:/Users/ASUS/AppData/Local/Programs/MiKTeX/fonts/type1/public/amsfonts/cm/cmss9.pfb><C:/Users/ASUS/AppData/Local/Programs/MiKTeX/fonts/type1/public/amsfonts/cm/cmssbx10.pfb><C:/Users/ASUS/AppData/Local/Programs/MiKTeX/fonts/type1/public/amsfonts/cm/cmssi10.pfb><C:/Users/ASUS/AppData/Local/Programs/MiKTeX/fonts/type1/public/amsfonts/cm/cmssi12.pfb><C:/Users/ASUS/AppData/Local/Programs/MiKTeX/fonts/type1/public/amsfonts/cm/cmssi8.pfb><C:/Users/ASUS/AppData/Local/Programs/MiKTeX/fonts/type1/public/amsfonts/cm/cmssi9.pfb><C:/Users/ASUS/AppData/Local/Programs/MiKTeX/fonts/type1/public/amsfonts/cm/cmsy10.pfb><C:/Users/ASUS/AppData/Local/Programs/MiKTeX/fonts/type1/public/amsfonts/cm/cmsy7.pfb><C:/Users/ASUS/AppData/Local/Programs/MiKTeX/fonts/type1/public/amsfonts/cm/cmsy9.pfb><C:/Users/ASUS/AppData/Local/Programs/MiKTeX/fonts/type1/public/amsfonts/symbols/msbm10.pfb>
-Output written on demo.pdf (48 pages, 851287 bytes).
+Output written on demo.pdf (43 pages, 863407 bytes).
 PDF statistics:
- 403 PDF objects out of 1000 (max. 8388607)
- 101 named destinations out of 1000 (max. 500000)
- 90 words of extra memory for PDF output out of 10000 (max. 10000000)
+ 379 PDF objects out of 1000 (max. 8388607)
+ 91 named destinations out of 1000 (max. 500000)
+ 95 words of extra memory for PDF output out of 10000 (max. 10000000)
 
