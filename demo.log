@@ -1,4 +1,4 @@
-This is pdfTeX, Version 3.141592653-2.6-1.40.26 (MiKTeX 24.4) (preloaded format=pdflatex 2024.7.13)  16 JUL 2024 17:00
+This is pdfTeX, Version 3.141592653-2.6-1.40.26 (MiKTeX 24.4) (preloaded format=pdflatex 2024.7.13)  21 JUL 2024 23:20
 entering extended mode
  restricted \write18 enabled.
  file:line:error style messages enabled.
@@ -941,17 +941,17 @@ LaTeX Font Info:    Font shape `OT1/cmss/b/n' in size <5> not available
 [4
 
 ]
-<photos/1.png, id=71, 873.2625pt x 551.05875pt>
+<photos/1.png, id=71, 662.475pt x 408.52625pt>
 File: photos/1.png Graphic file (type png)
 <use photos/1.png>
 Package pdftex.def Info: photos/1.png  used on input line 73.
-(pdftex.def)             Requested size: 245.83282pt x 155.12782pt.
+(pdftex.def)             Requested size: 245.83282pt x 151.59492pt.
 LaTeX Font Info:    Font shape `OT1/cmss/b/n' in size <9> not available
 (Font)              Font shape `OT1/cmss/bx/n' tried instead on input line 73.
 LaTeX Font Info:    Font shape `OT1/cmss/b/n' in size <6> not available
 (Font)              Font shape `OT1/cmss/bx/n' tried instead on input line 73.
 
-Overfull \vbox (13.21349pt too high) detected at line 73
+Overfull \vbox (9.68059pt too high) detected at line 73
  []
 
 
@@ -1267,7 +1267,7 @@ Here is how much of TeX's memory you used:
  1141 hyphenation exceptions out of 8191
  128i,13n,123p,1958b,788s stack positions out of 10000i,1000n,20000p,200000b,200000s
 <C:/Users/ASUS/AppData/Local/Programs/MiKTeX/fonts/type1/public/amsfonts/cm/cmex10.pfb><C:/Users/ASUS/AppData/Local/Programs/MiKTeX/fonts/type1/public/amsfonts/cm/cmmi10.pfb><C:/Users/ASUS/AppData/Local/Programs/MiKTeX/fonts/type1/public/amsfonts/cm/cmmi7.pfb><C:/Users/ASUS/AppData/Local/Programs/MiKTeX/fonts/type1/public/amsfonts/cm/cmmi9.pfb><C:/Users/ASUS/AppData/Local/Programs/MiKTeX/fonts/type1/public/amsfonts/cm/cmss10.pfb><C:/Users/ASUS/AppData/Local/Programs/MiKTeX/fonts/type1/public/amsfonts/cm/cmss8.pfb><C:/Users/ASUS/AppData/Local/Programs/MiKTeX/fonts/type1/public/amsfonts/cm/cmss9.pfb><C:/Users/ASUS/AppData/Local/Programs/MiKTeX/fonts/type1/public/amsfonts/cm/cmssbx10.pfb><C:/Users/ASUS/AppData/Local/Programs/MiKTeX/fonts/type1/public/amsfonts/cm/cmssi10.pfb><C:/Users/ASUS/AppData/Local/Programs/MiKTeX/fonts/type1/public/amsfonts/cm/cmssi12.pfb><C:/Users/ASUS/AppData/Local/Programs/MiKTeX/fonts/type1/public/amsfonts/cm/cmssi8.pfb><C:/Users/ASUS/AppData/Local/Programs/MiKTeX/fonts/type1/public/amsfonts/cm/cmssi9.pfb><C:/Users/ASUS/AppData/Local/Programs/MiKTeX/fonts/type1/public/amsfonts/cm/cmsy10.pfb><C:/Users/ASUS/AppData/Local/Programs/MiKTeX/fonts/type1/public/amsfonts/cm/cmsy7.pfb><C:/Users/ASUS/AppData/Local/Programs/MiKTeX/fonts/type1/public/amsfonts/cm/cmsy9.pfb><C:/Users/ASUS/AppData/Local/Programs/MiKTeX/fonts/type1/public/amsfonts/symbols/msbm10.pfb>
-Output written on demo.pdf (43 pages, 863407 bytes).
+Output written on demo.pdf (43 pages, 870030 bytes).
 PDF statistics:
  379 PDF objects out of 1000 (max. 8388607)
  91 named destinations out of 1000 (max. 500000)

@@ -1,5 +1,5 @@
 # Fdb version 4
-["pdflatex"] 1721116823.90786 "c:/Users/ASUS/OneDrive/Documents/LaTeX/Optimal_Control_Seminar/demo.tex" "demo.pdf" "demo" 1721116830.17536 0
+["pdflatex"] 1721571632.13813 "c:/Users/ASUS/OneDrive/Documents/LaTeX/Optimal_Control_Seminar/demo.tex" "demo.pdf" "demo" 1721571636.86717 0
   "C:/Users/ASUS/AppData/Local/MiKTeX/fonts/map/pdftex/pdftex.map" 1720873086 81117 0754b2bdd801bdb5b41468aa14a51bc6 ""
   "C:/Users/ASUS/AppData/Local/MiKTeX/miktex/data/le/pdftex/pdflatex.fmt" 1720872952 24264245 7dd525bb57921132aa35fd80fdb9dd39 ""
   "C:/Users/ASUS/AppData/Local/Programs/MiKTeX/fonts/tfm/public/amsfonts/cmextra/cmex7.tfm" 1233951848 1004 54797486969f23fa377b128694d548df ""
@@ -284,14 +284,14 @@
   "C:/Users/ASUS/AppData/Local/Programs/MiKTeX/tex/latex/xkeyval/xkeyval.sty" 1656236919 4937 4ce600ce9bd4ec84d0250eb6892fcf4f ""
   "KU_en.png" 1720867674 632515 1b4dfa2cb8bbeb6a1f31d301d287e3a1 ""
   "c:/Users/ASUS/OneDrive/Documents/LaTeX/Optimal_Control_Seminar/demo.tex" 1721116823 22740 f1db6b948e8c1e67e7bb16c54b83ba14 ""
-  "demo.aux" 1721116829 7228 f58c00209b088e5ac6bd210425b22577 "pdflatex"
-  "demo.nav" 1721116829 4894 7cf861ae5375ed9533f56b56876e1b1d "pdflatex"
-  "demo.out" 1721116829 689 41ad98515f5e8fe6b1c05f3f2655028f "pdflatex"
+  "demo.aux" 1721571636 7228 f58c00209b088e5ac6bd210425b22577 "pdflatex"
+  "demo.nav" 1721571636 4894 7cf861ae5375ed9533f56b56876e1b1d "pdflatex"
+  "demo.out" 1721571636 689 41ad98515f5e8fe6b1c05f3f2655028f "pdflatex"
   "demo.tex" 1721116823 22740 f1db6b948e8c1e67e7bb16c54b83ba14 ""
-  "demo.toc" 1721116829 245 29ef49bda8a0a25297a19986c7e39699 "pdflatex"
-  "demo.vrb" 1721116829 261 9ace4c6404f0a63ab8241075d6f2f633 "pdflatex"
+  "demo.toc" 1721571636 245 29ef49bda8a0a25297a19986c7e39699 "pdflatex"
+  "demo.vrb" 1721571636 261 9ace4c6404f0a63ab8241075d6f2f633 "pdflatex"
   "metropolisbrown.sty" 1720867674 1097 02f1b1208a111f0827257c3b49904a49 ""
-  "photos/1.png" 1720867674 63785 a11164ce2f8914ed52f57ce4c6ac5e92 ""
+  "photos/1.png" 1721571622 71445 270191ce379d19a2f053e3721d2d9c1c ""
   "photos/2.png" 1720867674 17575 6b5b05bc3fb33548db499f1a16168725 ""
   "photos/3.png" 1721097053 24905 5dc8ef843655ad7b763c2024ccbb4266 ""
   (generated)
