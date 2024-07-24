@@ -1,5 +1,11 @@
-\frametitle{Optimal Trajectories}
-The optimal state trajectories follow quadratic paths:
+\frametitle{Example 11.5.3: Minimum Time, Double Integrator (cont.)}
+\begin{figure}
+    \centering
+    \includegraphics[width=0.6\textwidth]{photos/5.png}
+    \caption{The optimal state trajectory.}
+  \end{figure}
+
+  The optimal state trajectories follow quadratic paths:
   \[
   x_1(t) = \begin{cases}
   \frac{1}{2} (x_2(t))^2 + K_1 & \text{if } u^\circ(t) = 1 \\

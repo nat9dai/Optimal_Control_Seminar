@@ -1,4 +1,4 @@
 \beamer@sectionintoc {1}{Minimum Principle and Lagrange Multipliers}{3}{0}{1}
-\beamer@sectionintoc {2}{The Penalty Approach}{11}{0}{2}
-\beamer@sectionintoc {3}{Application to LQR}{18}{0}{3}
-\beamer@sectionintoc {4}{Nonlinear Examples}{24}{0}{4}
+\beamer@sectionintoc {2}{The Penalty Approach}{12}{0}{2}
+\beamer@sectionintoc {3}{Application to LQR}{19}{0}{3}
+\beamer@sectionintoc {4}{Nonlinear Examples}{25}{0}{4}

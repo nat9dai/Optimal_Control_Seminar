@@ -58,7 +58,7 @@
   \]
   \end{frame}
 
-\begin{frame}{Lagrange Multipliers in Finite Dimensions}
+\begin{frame}{Lagrange Multipliers in Finite Dimensions (cont.)}
   \begin{figure}
       \centering
       \includegraphics[width=0.8\textwidth]{photos/1.png}
@@ -70,9 +70,22 @@
       \nabla_p \hat{V}(x^0, p^0) &= g(x^0) = \mathbf{0}
     \end{aligned}
   \]
-\end{frame}  
+\end{frame}
 
-\begin{frame}{Generalizing to Infinite Dimensions}
+\begin{frame}{Lagrange Multipliers in Finite Dimensions: Example}
+  \begin{figure}
+      \centering
+      \includegraphics[width=1\textwidth]{photos/4.png}
+  \end{figure}
+  \[
+    \begin{aligned}
+      \min_x & \ V(x)=x_1^2 + x_2^2 \\
+      &\text{s.t. } g(x) = x_1 + x_2 + 3 = 0
+    \end{aligned}
+  \]
+\end{frame}
+
+\begin{frame}{Generalizing to Infinite Dimensions: Functional Minimization}
   To generalize this to functional minimization, suppose that $F$ is a functional on $D^{r}[t_0,t_1]$, $F(z)$ is a real number, and $z \in D^{r}[t_0,t_1]$.
   We define the directional derivative:
   \[
@@ -122,13 +135,13 @@
       \item \textbf{Compute variations:} For perturbations \( x(t, \epsilon) = x^\circ(t) + \epsilon \eta(t) \) and \( u(t, \delta) = u^\circ(t) + \delta \psi(t) \), let \(\hat{V}(\epsilon)=\hat{V}(x^{\circ}+\epsilon \eta,u^{\circ}) \), and \(\hat{V}(\delta)\)=\(\hat{V}(x^{\circ},u^{\circ}+\delta \psi)\).
       \[
       \begin{aligned}
-        &\frac{d}{d\epsilon} \hat{V}(\epsilon) = \int_{t_0}^{t_1} \frac{\partial}{\partial x} H(x^\circ, p, u^\circ, t) \eta(t) \, dt + \int_{t_0}^{t_1} \dot{p}^T \eta(t) \, dt \\
+        &\frac{d}{d\epsilon} \hat{V}(\epsilon) = \int_{t_0}^{t_1} \frac{\partial}{\partial x} H(x^\circ + \epsilon \eta, p, u^\circ, t) \eta(t) \, dt + \int_{t_0}^{t_1} \dot{p}^T \eta(t) \, dt \\
         &- p^T(t_1) \eta(t_1) + p^T(t_0) \eta(t_0) + \frac{\partial}{\partial x} m(x^\circ(t_1)) \eta(t_1) = 0.
       \end{aligned}
       \]
       Similarly, by considering perturbations in \( u^{\circ} \):
       \[
-         \frac{d}{d\delta} \hat{V}(\delta) =\int_{t_0}^{t_1}\frac{\partial}{\partial u}H(x^{\circ},p,u^{\circ},t)\psi(t)dt=0
+         \frac{d}{d\delta} \hat{V}(\delta) =\int_{t_0}^{t_1}\frac{\partial}{\partial u}H(x^{\circ},p,u^{\circ} + \delta \psi,t)\psi(t)dt=0
       \]
   \end{enumerate}
 \end{frame}
@@ -139,13 +152,13 @@
     \item \textbf{Compute variations:} Determine perturbations in \(x^{\circ}\):
     \[
     \begin{aligned}
-      &\int_{t_0}^{t_1} \frac{\partial}{\partial x} H(x^\circ, p, u^\circ, t) \eta(t) \, dt + \int_{t_0}^{t_1} \dot{p}^T \eta(t) \, dt \\
+      &\int_{t_0}^{t_1} \frac{\partial}{\partial x} H(x^\circ + \epsilon \eta, p, u^\circ, t) \eta(t) \, dt + \int_{t_0}^{t_1} \dot{p}^T \eta(t) \, dt \\
       &- p^T(t_1) \eta(t_1) + p^T(t_0) \eta(t_0) + \frac{\partial}{\partial x} m(x^\circ(t_1)) \eta(t_1) = 0.
     \end{aligned}
     \]
     Similarly, by considering perturbations in \( u^{\circ} \):
     \[
-       \int_{t_0}^{t_1}\frac{\partial}{\partial u}H(x^{\circ},p,u^{\circ},t)\psi(t)dt=0
+       \int_{t_0}^{t_1}\frac{\partial}{\partial u}H(x^{\circ},p,u^{\circ}+\delta \psi,t)\psi(t)dt=0
     \]
     \item \textbf{Derive necessary conditions:} From the variations, derive the equations:
     \[
@@ -522,9 +535,6 @@
   \[
   x(t_0) = x_0, \quad x(t_1) = x_1
   \]
-\end{frame}
-  
-\begin{frame}[fragile]{Example 11.5.2: LQR Problem with Terminal State (cont.)}
   Let \( \psi(t, \tau) \) denote the state transition matrix:
   \[
   \frac{d}{dt} \psi(t, \tau) = \mathcal{H}(t) \psi(t, \tau), \quad \psi(t, t) = I
@@ -547,9 +557,6 @@
   \[
   p_0 = \psi_{12}(t_1, t_0)^{-1} (x_1 - \psi_{11}(t_1, t_0) x_0)
   \]
-\end{frame}
-  
-\begin{frame}[fragile]{Example 11.5.2: LQR Problem with Terminal State (cont.)}
   For all \( t \):
   \[
   p(t) = \psi_{21}(t, t_0) x_0 + \psi_{22}(t, t_0) p_0
@@ -565,25 +572,35 @@
 \end{frame}
   
 \begin{frame}[fragile]{Minimum Principle with Free Terminal Time}
-  Suppose \( t_0, x(t_0) = x_0 \) are fixed, and some components of \( x(t_1) \) are specified. The Minimum Principle with free terminal time states:
+  \textbf{Theorem 11.4}. Suppose that \( t_0, x(t_0) = x_0 \) are fixed, and that for some index set $I \subset \{1,...,n\}$, where $x_i(t_1)=x_{1i}, \ \text{if} \ i \in I$.
+  Suppose that \( u^\circ \) is a solution to the optimal control problem, subject to those constraints:
   \begin{enumerate}
-      \item There exists a costate vector \( p(t) \) such that \( u^\circ(t) = \arg \min_u H(x^\circ(t), p(t), u, t) \).
-      \item The pair \( (p, x^\circ) \) satisfy the 2-point boundary value problem with modified boundary conditions.
-      \item The unspecified terminal time \( t_1 \) satisfies:
+      \item[(a)] There exists a costate vector \( p(t) \) such that:
+      \[
+        u^\circ(t) = \arg \min_u H(x^\circ(t), p(t), u, t).
+      \]
+      \item[(b)] The pair \( (p, x^\circ) \) satisfy the 2-point boundary value problem with modified boundary conditions:
+      \[
+        \begin{aligned}
+          x_i(t_1)&=x_{1i}, \quad i \in I \\
+          p_i(t_1)&=\frac{\partial m}{\partial x_i} (x^{\circ}(t_1),t_1), \quad i \in I^{c}.
+        \end{aligned}
+      \]
+      The unspecified terminal time \( t_1 \) satisfies:
       \[
       \frac{\partial m}{\partial t}(x^\circ(t_1), t) + H(x^\circ(t_1), p(t_1), u^\circ(t_1), t_1) = 0
       \]
   \end{enumerate}
 \end{frame}
   
-\begin{frame}[fragile]{Example 11.5.3: Minimum Time Problem}
+\begin{frame}[fragile]{Minimum Time Problem}
   Consider a single input linear state space model:
   \[
   \dot{x} = Ax + bu
   \]
   We wish to find \( u^\circ \) which drives \( x \) from \( x(0) = x_0 \) to \( x(t_1) = x_1 \) in minimum time, under the constraint \( |u(t)| \le 1 \). The cost criterion is:
   \[
-  V(u) = t_1 = \int_0^{t_1} 1 \, dt
+  V(u) = t_1 = \int_0^{t_1} dt
   \]
   The Hamiltonian is:
   \[
@@ -591,7 +608,14 @@
   \]
 \end{frame}
   
-\begin{frame}[fragile]{Bang-Bang Control Law}
+\begin{frame}[fragile]{Minimum Time Problem (cont.)}
+  The Hamiltonian is:
+  \[
+    \begin{aligned}
+      H &= 1 + p^T(Ax + bu) \\
+      \nabla_u H &= p^T b
+    \end{aligned}
+  \]
   Minimizing \( H \) gives a bang-bang control law:
   \[
   u^\circ(t) = \begin{cases}
@@ -602,19 +626,26 @@
   If \( A, b \) are time-invariant and the eigenvalues of \( A \) are real, distinct, and negative, then \( p(t)^T b \) changes sign at most \( n - 1 \) times, bounding the number of switching times for the optimal control.
 \end{frame}
   
-\begin{frame}[fragile]{Costate Equation for Minimum Time Problem}
+\begin{frame}[fragile]{Minimum Time Problem (cont.)}
   The costate equation is:
   \[
   \dot{p} = -\nabla_x H = -A^T p
   \]
-  Using the final time boundary condition \( H|_{t=t_1} = 0 \):
+  Using the final time boundary condition from the theorem, \( \frac{\partial m}{\partial t}(x^\circ(t_1), t) + H(x^\circ(t_1), p(t_1), u^\circ(t_1), t_1) = 0\):
   \[
   1 + p(t_1)^T A x^\circ(t_1) + p(t_1)^T b u^\circ(t_1) = 1 + p(t_1)^T A x^\circ(t_1) - |p(t_1)^T b| = 0
   \]
 \end{frame}
   
-\begin{frame}[fragile]{Example: Double Integrator}
-  Consider the double integrator \( \ddot{y} = u \):
+\begin{frame}[fragile]{Example 11.5.3: Minimum Time, Double Integrator}
+  Consider the minimum time problem for a double integrator:
+  \[
+    \begin{aligned}
+      \min_{u} \ &V(u) = \int_0^{t_1} dt \\
+      &\text{s.t. } u \in [-1, 1],
+    \end{aligned}
+  \]
+  where the state equation is double integrator \( \ddot{y} = u \):
   \[
   A = \begin{pmatrix} 0 & 1 \\ 0 & 0 \end{pmatrix}, \quad b = \begin{pmatrix} 0 \\ 1 \end{pmatrix}
   \]
@@ -624,21 +655,40 @@
   \]
 \end{frame}
   
-\begin{frame}[fragile]{Solving Costate Equations}
-  From the costate equations, for constants \( c_1, c_2 \):
+\begin{frame}[fragile]{Example 11.5.3: Minimum Time, Double Integrator (cont.)}
+  From the costate equations:
   \[
-  p_1(t) = c_1, \quad p_2(t) = -c_1 t + c_2
+  \begin{aligned}
+    \dot{p} &= -\nabla_x H = -A^T p \\
+    \begin{pmatrix}
+      \dot{p}_{1}\\
+      \dot{p}_{2}
+      \end{pmatrix} &=-A^{\top }\begin{pmatrix}
+      p_{1}\\
+      p_{2}
+      \end{pmatrix} =\begin{pmatrix}
+        0 & 0\\
+        -1 & 0
+        \end{pmatrix}\begin{pmatrix}
+        p_{1}\\
+        p_{2}
+        \end{pmatrix}
+  \end{aligned}
   \]
-  The optimal control is bang-bang:
+  we have:
   \[
-  u^\circ(t) = \begin{cases}
-  1 & \text{if } t < t_1 - 1 \\
-  0 & \text{if } t > t_1 - 1
-  \end{cases}
+  p_1(t) = c_1, \quad p_2(t) = -c_1 t + c_2,
   \]
+  where \( c_1, c_2 \) are constants.
 \end{frame}
   
-\begin{frame}[fragile]{Optimal Trajectories}
+\begin{frame}[fragile]{Example 11.5.3: Minimum Time, Double Integrator (cont.)}
+  \begin{figure}
+    \centering
+    \includegraphics[width=0.6\textwidth]{photos/5.png}
+    \caption{The optimal state trajectory.}
+  \end{figure}
+
   The optimal state trajectories follow quadratic paths:
   \[
   x_1(t) = \begin{cases}
